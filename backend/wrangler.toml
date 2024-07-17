@@ -1,0 +1,8 @@
+name = "backend"
+compatibility_date = "2024-07-12"
+
+[vars]
+# Connection Pool
+DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMTNmNTY3Y2YtYjY4Zi00MmMzLWJiOTEtMWIxNjhkOWIzYjZiIiwidGVuYW50X2lkIjoiNGM1MjNhZDczZjIxNTNkOGNjMTkzNTc0MTcyY2Y4OTdlMDdmYTA3M2NkYmEzMTIwYWUzN2ZlOTVjZWQ3MmVjYiIsImludGVybmFsX3NlY3JldCI6IjU1NWE1ZTA4LTJiODUtNDE0Yy05Y2U2LTEyODA3MDk2OTc1NSJ9.6krjKK2Qgcmoh-1WxZ6m2u1CLEEDFCAYL1YUM6W3NB0"
+
+JWT_SECRET="lohar-server" 
