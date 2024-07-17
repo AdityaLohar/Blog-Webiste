@@ -48,7 +48,7 @@ export const useBlogs = () => {
                 setBlogs(res.data.blogs)
                 setLoading(false)
             })
-    }, [])
+    }, [blogs])
 
     return {
         loading,

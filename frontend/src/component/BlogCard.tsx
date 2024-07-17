@@ -1,4 +1,7 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom"
+import { BACKEND_URL } from "../config";
 
 interface BlogCardProps {
     authorName: string,
@@ -35,32 +38,73 @@ const BlogCard = ({
         }
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const handleDelete = async () => {
+        const response = await axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            }
+        });
+
+        // Check if deletion was successful
+        if (response.status === 200) {
+            alert('Blog deleted successfully');
+        } else {
+            alert('Failed to delete blog');
+        }
+    };
+
     return (
-        <Link to={`/blog/${id}`}>
-            <div className="border-b-2 border-gray-100 max-w-3xl p-8 hover:cursor-pointer">
-                <div className="flex items-center gap-3 pb-3">
-                    <Avatar name={authorName} />
-                    <p>
-                        {authorName}
-                    </p>
-                    <p className="text-gray-400">
-                        {computePublishedDate(publishedDate)}
-                    </p>
+        <div>
+
+            <div className="border-b-2 border-gray-100 max-w-3xl p-8">
+                <div className="flex justify-between">
+                    <div className="flex items-center gap-3 pb-3">
+                        <Avatar name={authorName} />
+                        <p>
+                            {authorName}
+                        </p>
+                        <p className="text-gray-400">
+                            {computePublishedDate(publishedDate)}
+                        </p>
+                    </div>
+                    <div className="relative">
+                        <button onClick={() => isModalOpen === true ? setIsModalOpen(false) : setIsModalOpen(true)}>
+                            ...
+                        </button>
+                        {isModalOpen && (
+                            <div className="absolute right-0 mt-2 w-40 bg-gray-200 rounded-md shadow-lg z-10">
+                                {/* <div className="py-2 px-4 cursor-pointer hover:bg-gray-100">
+                                Change Profile Picture
+                            </div> */}
+                                <div
+                                    className="py-2 px-4 cursor-pointer hover:bg-gray-100"
+                                    onClick={handleDelete}
+                                >
+                                    Delete
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                 </div>
 
-                <div className="font-bold text-2xl py-1">
-                    {title}
-                </div>
+                <Link to={`/blog/${id}`}>
+                    <div className="font-bold text-2xl py-1">
+                        {title}
+                    </div>
 
-                <div className="text-gray-600 py-1">
-                    {content.length > 120 ? `${content.slice(0, 120)}...` : content}
-                </div>
+                    <div className="text-gray-600 py-1">
+                        {content.length > 120 ? `${content.slice(0, 120)}...` : content}
+                    </div>
 
+                </Link>
                 <div className="text-sm text-gray-400 py-1">
                     {Math.ceil(content.length / 100)} {Math.ceil(content.length / 100) > 1 ? "mins" : "min"} read
                 </div>
             </div>
-        </Link>
+        </div>
     )
 }
 
