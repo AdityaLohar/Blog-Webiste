@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar } from './BlogCard';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // Remove token from localStorage
+        window.location.href = '/'; // Redirect to home or login page
+    };
     return (
-        <div className='flex items-center justify-between px-4 border-b-2 py-3'>
+        <div className='flex items-center justify-between px-4 border-b-2 py-3' onClick={() => isModalOpen === true ? setIsModalOpen(false) : null}>
             <div className='text-xl font-semibold cursor-pointer'>
-                Medium
+                <Link to={`/blogs`}>Medium</Link>
             </div>
             <div className='flex items-center gap-2 sm:gap-5'>
                 <Link to={`/publish`}>
                     <button className='bg-green-700 text-white p-2 px-6 text-sm rounded-full'>New</button>
                 </Link>
-                <Avatar name="aditya" size={10} />
+                <div>
+                    <button onClick={() => isModalOpen === true ? setIsModalOpen(false) : setIsModalOpen(true)}>
+                        <Avatar name="aditya" size={10} />
+                    </button>
+                    {isModalOpen && (
+                        <div className="absolute right-0 mt-2 w-48 bg-gray-200 rounded-md shadow-lg z-10">
+                            {/* <div className="py-2 px-4 cursor-pointer hover:bg-gray-100">
+                                Change Profile Picture
+                            </div> */}
+                            <div
+                                className="py-2 px-4 cursor-pointer hover:bg-gray-100"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )

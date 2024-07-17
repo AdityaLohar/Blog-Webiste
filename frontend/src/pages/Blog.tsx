@@ -3,6 +3,7 @@ import { useBlog } from "../hooks"
 import { Avatar } from "../component/BlogCard"
 import Navbar from './../component/Navbar';
 import BlogSkeleton from "../component/BlogSkeleton";
+import { useContext, useEffect } from "react";
 
 const Blog = () => {
   const { id } = useParams()
@@ -18,6 +19,26 @@ const Blog = () => {
     </div>
   }
 
+  const computePublishedDate = (dateString: Date) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const diffInMs = now.getTime() - createdAt.getTime();
+    const diffInHours = diffInMs / (1000 * 60 * 60);
+    const timeOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true // For AM/PM format
+    };
+
+    if (diffInHours < 24) {
+      return `Today at ${createdAt.toLocaleTimeString([], timeOptions)}`;
+    } else if (diffInHours < 48) {
+      return `Yesterday at ${createdAt.toLocaleTimeString([], timeOptions)}`;
+    } else {
+      return createdAt.toLocaleDateString();
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -29,7 +50,7 @@ const Blog = () => {
               {blog?.title}
             </div>
             <div className="py-2 text-gray-400">
-              Posted on 17 July 2024
+              {computePublishedDate(blog?.createdAt)}
             </div>
             <div className="block md:hidden py-2">
               <div>Author</div>

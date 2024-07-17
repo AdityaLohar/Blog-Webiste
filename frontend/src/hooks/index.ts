@@ -8,7 +8,8 @@ interface Blog {
     id: number,
     author: {
         name: string
-    }
+    },
+    createdAt: Date
 }
 
 export const useBlog = ({ id }: { id: string }) => {

@@ -4,7 +4,7 @@ interface BlogCardProps {
     authorName: string,
     title: string,
     content: string,
-    publishedDate: string,
+    publishedDate: Date,
     id: number
 }
 
@@ -15,6 +15,26 @@ const BlogCard = ({
     content,
     publishedDate
 }: BlogCardProps) => {
+    const computePublishedDate = (dateString: Date) => {
+        const createdAt = new Date(dateString);
+        const now = new Date();
+        const diffInMs = now.getTime() - createdAt.getTime();
+        const diffInHours = diffInMs / (1000 * 60 * 60);
+        const timeOptions = {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true // For AM/PM format
+        };
+
+        if (diffInHours < 24) {
+            return `Today at ${createdAt.toLocaleTimeString([], timeOptions)}`;
+        } else if (diffInHours < 48) {
+            return `Yesterday at ${createdAt.toLocaleTimeString([], timeOptions)}`;
+        } else {
+            return createdAt.toLocaleDateString();
+        }
+    };
+
     return (
         <Link to={`/blog/${id}`}>
             <div className="border-b-2 border-gray-100 max-w-3xl p-8 hover:cursor-pointer">
@@ -24,7 +44,7 @@ const BlogCard = ({
                         {authorName}
                     </p>
                     <p className="text-gray-400">
-                        {publishedDate}
+                        {computePublishedDate(publishedDate)}
                     </p>
                 </div>
 
@@ -39,7 +59,7 @@ const BlogCard = ({
                 <div className="text-sm text-gray-400 py-1">
                     {Math.ceil(content.length / 100)} {Math.ceil(content.length / 100) > 1 ? "mins" : "min"} read
                 </div>
-            </div>  
+            </div>
         </Link>
     )
 }
