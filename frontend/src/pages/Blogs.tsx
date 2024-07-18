@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect } from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import BlogCard from "../component/BlogCard"
 import BlogSkeleton from "../component/BlogSkeleton";
 import { useBlogs } from "../hooks"
+// @ts-ignore
 import Navbar from './../component/Navbar';
 
 const Blogs = () => {
@@ -18,7 +18,11 @@ const Blogs = () => {
         </div>
     }
 
-    blogs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    blogs.sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA;
+    });
 
     return (
         <div>
@@ -31,7 +35,7 @@ const Blogs = () => {
                         authorName={val.author.name || "Anonymous"}
                         title={val.title}
                         content={val.content}
-                        publishedDate={val.createdAt}
+                        publishedDate={val.createdAt ?? new Date()}
                     />)}
 
                 </div>

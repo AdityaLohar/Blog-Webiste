@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SignupInput } from '@adityalohar/medium-common'
 import axios from 'axios'
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BACKEND_URL } from '../config'
 

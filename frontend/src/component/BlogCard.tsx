@@ -23,7 +23,7 @@ const BlogCard = ({
         const now = new Date();
         const diffInMs = now.getTime() - createdAt.getTime();
         const diffInHours = diffInMs / (1000 * 60 * 60);
-        const timeOptions = {
+        const timeOptions : Intl.DateTimeFormatOptions = {
             hour: 'numeric',
             minute: 'numeric',
             hour12: true // For AM/PM format
@@ -108,7 +108,7 @@ const BlogCard = ({
     )
 }
 
-const sizeClasses = {
+const sizeClasses : { [key: number]: string } = {
     6: "w-6 h-6",
     8: "w-8 h-8",
     10: "w-10 h-10",

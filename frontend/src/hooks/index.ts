@@ -9,7 +9,7 @@ interface Blog {
     author: {
         name: string
     },
-    createdAt: Date
+    createdAt?: Date
 }
 
 export const useBlog = ({ id }: { id: string }) => {

@@ -1,12 +1,14 @@
-import React, { ChangeEvent, useState } from 'react'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { ChangeEvent, useState } from 'react'
+// @ts-ignore
 import Navbar from './../component/Navbar';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 
 const Publish = () => {
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
+    const [title, setTitle] = useState<string>()
+    const [description, setDescription] = useState<string>()
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()

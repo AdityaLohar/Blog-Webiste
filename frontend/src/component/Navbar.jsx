@@ -6,8 +6,8 @@ const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove token from localStorage
-        window.location.href = '/'; // Redirect to home or login page
+        localStorage.removeItem('token'); 
+        window.location.href = '/';
     };
     return (
         <div className='flex items-center justify-between px-4 border-b-2 py-3' onClick={() => isModalOpen === true ? setIsModalOpen(false) : null}>

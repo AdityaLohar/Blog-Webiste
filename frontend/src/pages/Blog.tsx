@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useParams } from "react-router-dom"
 import { useBlog } from "../hooks"
 import { Avatar } from "../component/BlogCard"
+// @ts-ignore
 import Navbar from './../component/Navbar';
 import BlogSkeleton from "../component/BlogSkeleton";
-import { useContext, useEffect } from "react";
 
 const Blog = () => {
   const { id } = useParams()
@@ -24,7 +25,7 @@ const Blog = () => {
     const now = new Date();
     const diffInMs = now.getTime() - createdAt.getTime();
     const diffInHours = diffInMs / (1000 * 60 * 60);
-    const timeOptions = {
+    const timeOptions : Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
       hour12: true // For AM/PM format
@@ -50,7 +51,8 @@ const Blog = () => {
               {blog?.title}
             </div>
             <div className="py-2 text-gray-400">
-              {computePublishedDate(blog?.createdAt)}
+            {blog?.createdAt ? computePublishedDate(blog.createdAt) : 'Date not available'}
+
             </div>
             <div className="block md:hidden py-2">
               <div>Author</div>
