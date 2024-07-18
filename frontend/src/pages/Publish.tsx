@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ChangeEvent, useState } from 'react'
 // @ts-ignore
-import Navbar from './../component/Navbar';
+// import Navbar from './../component/Navbar';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Publish = () => {
 
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <div className='flex justify-center w-full pt-8 px-4'>
                 <div className='max-w-screen-lg w-full'>
                     <input

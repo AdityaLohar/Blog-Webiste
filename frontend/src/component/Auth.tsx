@@ -4,10 +4,13 @@ import axios from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BACKEND_URL } from '../config'
+import { useSetRecoilState } from 'recoil'
+import { userState } from '../atoms/userAtom'
 
 const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
+    const setUser = useSetRecoilState(userState)
 
     const [postInputs, setPostInputs] = useState<SignupInput>({
         name: "",
@@ -21,6 +24,9 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
             const res = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signin" ? "signin" : "signup"}`, postInputs)
             const jwt = res.data.jwt;
             localStorage.setItem("token", jwt)
+            localStorage.setItem("username", res.data.username)
+            const username = localStorage.getItem("username")
+            setUser(username ? username : "Anonymous")
             navigate("/blogs")
             setLoading(false)
         } catch (err) {

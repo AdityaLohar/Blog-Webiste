@@ -1,12 +1,18 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { Avatar } from './BlogCard';
 import { Link } from 'react-router-dom';
+import { userState } from './../atoms/userAtom';
+import { useRecoilValue } from 'recoil';
+import { MdOutlineLogout } from "react-icons/md";
 
 const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const username = useRecoilValue(userState)
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); 
+        localStorage.removeItem('token');
         window.location.href = '/';
     };
     return (
@@ -20,7 +26,7 @@ const Navbar = () => {
                 </Link>
                 <div>
                     <button onClick={() => isModalOpen === true ? setIsModalOpen(false) : setIsModalOpen(true)}>
-                        <Avatar name="aditya" size={10} />
+                        <Avatar name={username ? username : "Anonymous"} size={10} />
                     </button>
                     {isModalOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-gray-200 rounded-md shadow-lg z-10">

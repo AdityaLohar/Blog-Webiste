@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useBlog } from "../hooks"
 import { Avatar } from "../component/BlogCard"
 // @ts-ignore
-import Navbar from './../component/Navbar';
+// import Navbar from './../component/Navbar';
 import BlogSkeleton from "../component/BlogSkeleton";
 
 const Blog = () => {
@@ -15,7 +15,7 @@ const Blog = () => {
 
   if (loading) {
     return <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <BlogSkeleton />
     </div>
   }
@@ -42,7 +42,7 @@ const Blog = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex justify-center">
         <div className=' grid grid-cols-12 gap-4 p-4 sm:p-10'>
           <div className="hidden lg:block lg:col-span-2"></div>

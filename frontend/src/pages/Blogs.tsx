@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useEffect } from "react";
 import BlogCard from "../component/BlogCard"
 import BlogSkeleton from "../component/BlogSkeleton";
 import { useBlogs } from "../hooks"
 // @ts-ignore
-import Navbar from './../component/Navbar';
+// import Navbar from './../component/Navbar';
 
 const Blogs = () => {
-    const { loading, blogs } = useBlogs()
+    const { loading, blogs, fetchBlogs } = useBlogs()
+
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
 
     if (loading) {
         return <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <BlogSkeleton />
             <BlogSkeleton />
             <BlogSkeleton />
@@ -26,7 +31,7 @@ const Blogs = () => {
 
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="flex justify-center">
                 <div className="">
                     {blogs.map(val => <BlogCard

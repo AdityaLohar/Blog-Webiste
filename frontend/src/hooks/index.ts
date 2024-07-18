@@ -35,23 +35,63 @@ export const useBlog = ({ id }: { id: string }) => {
 }
 
 export const useBlogs = () => {
-    const [loading, setLoading] = useState(true)
-    const [blogs, setBlogs] = useState<Blog[]>([])
+    const [loading, setLoading] = useState(true);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
+
+    const fetchBlogs = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found');
+            }
+
+            const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+                headers: {
+                    Authorization: token
+                }
+            });
+
+            setBlogs(response.data.blogs);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+            setLoading(false); // Handle error state if needed
+        }
+    };
 
     useEffect(() => {
-        axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-            headers: {
-                Authorization: localStorage.getItem('token')
-            }
-        })
-            .then(res => {
-                setBlogs(res.data.blogs)
-                setLoading(false)
-            })
-    }, [blogs])
+        fetchBlogs(); // Call fetchBlogs when component mounts
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Empty dependency array ensures fetchBlogs is called only once
 
     return {
         loading,
-        blogs
-    }
-}
+        blogs,
+        fetchBlogs // Return fetchBlogs function for manual triggering
+    };
+};
+
+// export const useBlogs = () => {
+//     const [loading, setLoading] = useState(true)
+//     const [blogs, setBlogs] = useState<Blog[]>([])
+
+//     useEffect(() => {
+//         axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+//             headers: {
+//                 Authorization: localStorage.getItem('token')
+//             }
+//         })
+//             .then(res => {
+//                 setBlogs(res.data.blogs)
+//                 setLoading(false)
+//             })
+//     }, [blogs])
+
+//     return {
+//         loading,
+//         blogs
+//     }
+// }
+
+
