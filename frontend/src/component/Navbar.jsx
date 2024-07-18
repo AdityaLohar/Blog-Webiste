@@ -18,7 +18,9 @@ const Navbar = () => {
     return (
         <div className='flex items-center justify-between px-4 border-b-2 py-3' onClick={() => isModalOpen === true ? setIsModalOpen(false) : null}>
             <div className='text-xl font-semibold cursor-pointer'>
-                <Link to={`/blogs`}>Medium</Link>
+                <Link to={`/blogs`}>
+                    Medium
+                </Link>
             </div>
             <div className='flex items-center gap-2 sm:gap-5'>
                 <Link to={`/publish`}>
